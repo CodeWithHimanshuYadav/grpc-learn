@@ -1,8 +1,6 @@
 const grpc = require("@grpc/grpc-js");
 var protoLoader = require("@grpc/proto-loader");
 const PROTO_PATH = "../../file-validation.proto";
-// const jwt = require("jsonwebtoken");
-// const fs = require("fs");
 
 const options = {
     keepCase: true,
@@ -23,16 +21,4 @@ const client = new Service(
 );
 
 module.exports = client;
-/** add token */
-// const metaData = new grpc.Metadata();
-// const token = jwt.sign({ id: 1 }, "123");
-// metaData.add('Authorization', `Bearer ${token}`);
-
-// client.getAllNews({}, metaData, (error, news) => {
-//     if (error) {
-//         console.log("Error ", error.message);
-//         throw error
-//     }
-//     console.log("news", news);
-// });
 
