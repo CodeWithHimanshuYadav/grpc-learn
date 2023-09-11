@@ -1,17 +1,21 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
 
 package FileValidationPackage;  // Replace with your actual package name
 
 service FileValidation {
-    rpc validateSize (validateSizeRequest) returns (response) {}
-    rpc validateFileMimeType (validateMimeTypeRequest) returns (response) {}
+    rpc validateSize (validateSizeRequest) returns (response);
+    rpc validateFileMimeType (validateMimeTypeRequest) returns (response);
+    rpc helloService (google.protobuf.Empty) returns (greetingResponse);
 }
 
 message response {
     bool isValid = 1;
     string message = 2;
 }
-
+message greetingResponse {
+  string message = 1;
+}
 message validateSizeRequest {
     fileType file = 1;
     int32 maxSize = 2;

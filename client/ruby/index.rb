@@ -23,14 +23,14 @@
 # $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
 
 require 'grpc'
-require '/Users/himanshuyadav/Desktop/Learn/grpc-learn/client/ruby/hello_services_pb.rb'
+require './file-validation_services_pb.rb'
+# require '/Users/himanshuyadav/Desktop/Learn/grpc-learn/client/ruby/file-validation_services_pb.rb'
 
 def main
-  stub = NewsService::Stub.new('localhost:50051', :this_channel_is_insecure)
-  metadata = { 'authorization' => "Bearer 1234567" }
+  stub = FileValidationPackage::FileValidation::Stub.new('localhost:50051', :this_channel_is_insecure)
   begin
-    message = stub.get_all_news(Empty.new(), metadata: metadata)
-    p "News: #{message}"
+    message = stub.hello_service(Google::Protobuf::Empty.new)
+    p "Gretting reply: #{message.message}"
   rescue GRPC::BadStatus => e
     abort "ERROR: #{e.message}"
   end

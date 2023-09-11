@@ -43,6 +43,11 @@ server.addService(package.FileValidationPackage.FileValidation.service, {
             isValid ,
             message: isValid ? "Success" : "Failed"
         });
+    },
+    helloService: (call, callback) => {
+        callback(null, {
+            message: "Hi there, I am file service"
+        });
     }
 });
 
