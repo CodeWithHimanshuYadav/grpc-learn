@@ -1,19 +1,18 @@
 const client = require("./grpc-client");
 
 const fileUploadController = async (req, res) => {
-    const file = Object.values(req.files)[0]
-    let isValid = true;
-    // isValid && validateSize(file);
-    isValid && validateMediaType(file);
+    const file = Object.values(req.files)[0];
+    // validateSize(file);
+    validateMediaType(file);
     res.send({
-        success: isValid
+        success: true /** hardcoded here, please don't do so in development/production */
     });
 }
 
 const validateSize = (file) => {
     const validateSizeRequest = {
         file: {
-            content: Buffer.from(file.data),
+            content: file.data,
             name: file.name,
             mimeType: file.mimetype,
             size: file.size,
@@ -35,7 +34,7 @@ const validateMediaType = (file) => {
     // Example: Calling the validateFileMimeType RPC method
     const validateMimeTypeRequest = {
         file: {
-            content: Buffer.from(file.data),
+            content: file.data,
             name: file.name,
             mimeType: file.mimetype,
             size: file.size,

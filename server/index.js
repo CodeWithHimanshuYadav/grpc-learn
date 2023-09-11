@@ -27,9 +27,18 @@ server.addService(package.FileValidationPackage.FileValidation.service, {
             message: isValid ? "File size is in range" : "File size has crossed the max limit"
         });
     },
-    validateFileMimeType: (call, callback) => {
+    validateFileMimeType: async (call, callback) => {
         const { file, allowedMimeTypes } = call.request;
-        const isValid = allowedMimeTypes.includes(file?.mimeType);
+        const fileType = await (async () => {
+            const { fileTypeFromBuffer } = await import('file-type');
+
+            const type = await fileTypeFromBuffer(file.content);
+            console.log(type, "  ", file.mimeType);
+            return type.mime
+        })();
+        console.log("length " ,file.content.length, " ", file.size);
+        const isValid = allowedMimeTypes.includes(fileType);
+
         callback(null, {
             isValid ,
             message: isValid ? "Success" : "Failed"
